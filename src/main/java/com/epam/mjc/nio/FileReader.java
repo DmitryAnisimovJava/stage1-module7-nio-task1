@@ -15,7 +15,7 @@ public class FileReader {
 
 	public static String readDataFromFile(File file) {
 		try (RandomAccessFile myFile = new RandomAccessFile(file, "r");
-			 FileChannel inChannel = myFile.getChannel();) {
+			FileChannel inChannel = myFile.getChannel();) {
 			long fileSize = inChannel.size();
 			ByteBuffer buffer = ByteBuffer.allocate((int) fileSize);
 			inChannel.read(buffer);
@@ -28,12 +28,15 @@ public class FileReader {
 	}
 	
     public Profile getDataFromFile(File file) {
-    	if (readDataFromFile(file) == null) {
-			System.out.println("IOexception in readDataFromFile method");
-			System.out.println("returning empty profile");
-    		return new Profile();
+    	String[] allDataInString;
+    	try {
+    		allDataInString = readDataFromFile(file).split("\n");
+		} catch (NullPointerException e) {
+			e.getMessage();
+			e.getStackTrace();
+		} finally {
+			allDataInString = new String[1];
 		}
-    	String[] allDataInString = readDataFromFile(file).split("\n");
     	for(int i = 0; i < allDataInString.length; i = i++) {
     		if(allDataInString[i].contains("Name:")) {
     		name = allDataInString[i].replace("Name:", "").replaceAll("\\s+", "");
