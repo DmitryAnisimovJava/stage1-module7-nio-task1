@@ -28,20 +28,25 @@ public class FileReader {
 	}
 	
     public Profile getDataFromFile(File file) {
+    	if (readDataFromFile(file) == null) {
+			System.out.println("IOexception in readDataFromFile method");
+			System.out.println("returning empty profile");
+    		return new Profile();
+		}
     	String[] allDataInString = readDataFromFile(file).split("\n");
-    	for(int i = 0; i < allDataInString.length;) {
-    		if(allDataInString[i].isBlank()) {
-    			while(allDataInString[i].isBlank() && i < allDataInString.length) {
-    				i++;
-    			}
-    		}
+    	for(int i = 0; i < allDataInString.length; i = i++) {
+    		if(allDataInString[i].contains("Name:")) {
     		name = allDataInString[i].replace("Name:", "").replaceAll("\\s+", "");
-    		i++;
+    		}
+    		if(allDataInString[i].contains("Age:")) {
     		age = Integer.getInteger(allDataInString[i].replace("Age:", "").replaceAll("\\s+", ""));
-    		i++;
+    		}
+    		if(allDataInString[i].contains("Age:")) {
     		email = allDataInString[i].replace("Email:", "").replaceAll("\\s+", "");
-    		i++;
+    		}
+    		if(allDataInString[i].contains("Age:")) {
     		phone = Long.getLong(allDataInString[i].replace("Phone:", "").replaceAll("\\s+", ""));
+    		}
     	}
         return new Profile(name, age, email, phone);
     }
