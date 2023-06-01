@@ -23,31 +23,23 @@ public class FileReader {
 			return resultingData;
 		} catch (IOException e) {
 			 e.printStackTrace();
-			 return null;
+			 return " ";
 		}
 	}
 	
-    public Profile getDataFromFile(File file) {
-    	String[] allDataInString;
-    	try {
-    		allDataInString = readDataFromFile(file).split("\n");
-		} catch (NullPointerException e) {
-			e.getMessage();
-			e.getStackTrace();
-		} finally {
-			allDataInString = new String[1];
-		}
-    	for(int i = 0; i < allDataInString.length; i = i++) {
+	public Profile getDataFromFile(File file) {
+    	String[] allDataInString = readDataFromFile(file).split("\n");
+    	for(int i = 0; i < allDataInString.length; i++) {
     		if(allDataInString[i].contains("Name:")) {
     		name = allDataInString[i].replace("Name:", "").replaceAll("\\s+", "");
     		}
     		if(allDataInString[i].contains("Age:")) {
     		age = Integer.getInteger(allDataInString[i].replace("Age:", "").replaceAll("\\s+", ""));
     		}
-    		if(allDataInString[i].contains("Age:")) {
+    		if(allDataInString[i].contains("Emal:")) {
     		email = allDataInString[i].replace("Email:", "").replaceAll("\\s+", "");
     		}
-    		if(allDataInString[i].contains("Age:")) {
+    		if(allDataInString[i].contains("Phone:")) {
     		phone = Long.getLong(allDataInString[i].replace("Phone:", "").replaceAll("\\s+", ""));
     		}
     	}
